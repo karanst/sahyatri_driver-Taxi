@@ -81,7 +81,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
       setSnackbar("Something Went Wrong", context);
     }
   }
-  String wOnlineAmount = "0",wCashAmount = "0",wOnlineAAmount = "0",wCashAAmount = "0",wReferAmount = "0",wBonusAmount = "0",wIncentiveAmount = "0",wPayAmount = "0";
+  String wOnlineAmount = "0",wCashAmount = "0",wOnlineAAmount = "0",wCashAAmount = "0",wReferAmount = "0",wBonusAmount = "0",wIncentiveAmount = "0",wPayAmount = "0", promoAmount = "0";
   getPayout() async {
     try {
 
@@ -103,6 +103,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
           wBonusAmount = v["incentive_bounus"]!=null?v["incentive_bounus"].toString():"0";
           wIncentiveAmount = v["incentive_amount"]!=null?v["incentive_amount"].toString():"0";
           wPayAmount = v["weekly_pay"]!=null?v["weekly_pay"].toString():"0";
+          promoAmount = v["promo_amount"]!=null?v["promo_amount"].toString():"0";
         });
       } else {
         setSnackbar(response['message'], context);
@@ -630,6 +631,21 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
                         textColor: Colors.black),
                     text(
                         "₹" + "${wBonusAmount}",
+                        fontSize: 10.sp,
+                        fontFamily: fontMedium,
+                        textColor: Colors.black),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    text("Promo Amount : ",
+                        fontSize: 10.sp,
+                        fontFamily: fontMedium,
+                        textColor: Colors.black),
+                    text(
+                        "₹" + "$promoAmount",
                         fontSize: 10.sp,
                         fontFamily: fontMedium,
                         textColor: Colors.black),

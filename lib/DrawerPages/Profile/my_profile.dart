@@ -27,8 +27,8 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 class MyProfilePage extends StatefulWidget {
-  final String? isActive;
-  const MyProfilePage({Key? key, this.isActive}) : super(key: key);
+  final String? isActive, userId;
+  const MyProfilePage({Key? key, this.isActive, this.userId}) : super(key: key);
   @override
   _MyProfilePageState createState() => _MyProfilePageState();
 }
@@ -48,19 +48,25 @@ class _MyProfilePageState extends State<MyProfilePage> {
   @override
   void initState() {
     super.initState();
-    // getProfile();
-    nameCon.text = name;
-    emailCon.text = email;
-    vehicleCon.text = number;
-    carCon.text = brand;
-    genderCon.text = gender1;
-    dobCon.text = dob;
-    bankCon.text = bankName;
-    codeCon.text = code;
-    accountCon.text = accountNumber;
-    carCon.text = brand;
-    modelId = model2;
     getCab();
+    print("this is userID ${widget.userId}");
+    if(widget.userId != null || widget.userId != '') {
+      Future.delayed(Duration(milliseconds: 500), (){
+        getProfile();
+      });
+    }else{
+      nameCon.text = name;
+      emailCon.text = email;
+      vehicleCon.text = number;
+      carCon.text = brand;
+      genderCon.text = gender1;
+      dobCon.text = dob;
+      bankCon.text = bankName;
+      codeCon.text = code;
+      accountCon.text = accountNumber;
+      carCon.text = brand;
+      modelId = model2;
+    }
   }
   getProfile() async {
     try {
@@ -75,16 +81,21 @@ class _MyProfilePageState extends State<MyProfilePage> {
       // setState(() {
       //   saveStatus = true;
       // });
+      print("this is profile parameters ${params}");
       if (response['status']) {
         var data = response["data"];
         print(data);
-        name = data['user_name'];
-        mobile = data['phone'];
-        email = data['email'];
-        gender1 = data['gender'];
-        homeAddress = data['home_address'];
-        // walletAccount = data['wallet_amount'];
-        dob = data['dob'];
+        nameCon.text = data['user_name'];
+        mobileCon.text = data['phone'];
+        emailCon.text = data['email'];
+        vehicleCon.text = data['car_no'];
+        genderCon.text = data['gender'];
+        dobCon.text = data['dob'];
+        bankCon.text = data['bank_name'];
+        codeCon.text = data['ifsc_code'];
+        accountCon.text = data['account_number'];
+        brand = data['car_type'];
+        model2 = data['car_model'];
         if (response['rating'] != null) {
           rating =
               double.parse(response['rating'].toString()).toStringAsFixed(2);
@@ -94,6 +105,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
         drivingImage = response['image_path'].toString() +
             data['driving_licence_photo'].toString();
         print(image);
+        name = data['user_name'];
+        mobile = data['phone'];
         imagePath = response['image_path'].toString();
         panCard = imagePath + data['pan_card'].toString();
         adharCard = imagePath + data['aadhar_card'].toString();
@@ -251,8 +264,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     children: [
                       EntryField(
                         label: getTranslated(context, "ENTER_PHONE")!,
-                        initialValue: mobile,
-                        readOnly: true,
+                        keyboardType: TextInputType.number,
+                        maxLength: 10,
+                        // initialValue: mobile,
+                        controller: mobileCon,
+                        // readOnly: true,
                       ),
                       EntryField(
                         label: getTranslated(context,Strings.FULL_NAME),
@@ -555,10 +571,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
              height:60,
              child: CustomButton(
                 text: getTranslated(context, "Updateprofile")!,
-                onTap: profileStatus=="0"?(){
-
-                  setSnackbar("Please Wait For Review", context);
-                }:(){
+                onTap:
+                // profileStatus=="0"?(){
+                //
+                //   setSnackbar("Please Wait For Review", context);
+                // }:
+                    (){
                   /* if(mobileCon.text==""||mobileCon.text.length!=10){
                     setSnackbar("Please Enter Valid Mobile Number", context);
                     return ;
@@ -567,10 +585,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   setSnackbar("Please Enter Full Name", context);
                   return;
                   }
-                  if(validateEmail(emailCon.text, "Please Enter Email","Please Enter Valid Email")!=null){
-                  setSnackbar(validateEmail(emailCon.text, "Please Enter Email","Please Enter Valid Email").toString(), context);
-                  return;
-                  }
+                  // if(validateEmail(emailCon.text, "Please Enter Email","Please Enter Valid Email")!=null){
+                  // setSnackbar(validateEmail(emailCon.text, "Please Enter Email","Please Enter Valid Email").toString(), context);
+                  // return;
+                  // }
                   if(vehicleCon.text==""||vehicleCon.text.length!=10){
                   setSnackbar("Please Enter Valid Vehicle Number", context);
                   return ;
@@ -597,7 +615,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
            ),
           ],
         ),
-      ):Container(
+      )
+          :Container(
           width: 50,
           height: 50,
           child: Center(child: CircularProgressIndicator())),

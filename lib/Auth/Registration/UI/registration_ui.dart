@@ -706,8 +706,12 @@ class _RegistrationUIState extends State<RegistrationUI> {
 
   }
   File? _image,_finalImage,panImage,vehicleImage,adharImage,insuranceImage,bankImage;
+
   Future getImage(ImgSource source, BuildContext context,int i) async {
     var image = await ImagePickerGC.pickImage(
+      imageQuality: 1,
+      maxHeight: 480,
+      maxWidth: 480,
       context: context,
       source: source,
       cameraIcon: Icon(
@@ -760,6 +764,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
   ApiBaseHelper apiBase = new ApiBaseHelper();
   bool isNetwork = false;
   bool loading = false;
+
   Future<void> submitSubscription() async {
     await App.init();
 
@@ -782,7 +787,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               _image!.readAsBytes().asStream(),
               _image!.lengthSync(),
               filename: path.basename(_image!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
           request.files.add(
@@ -791,7 +796,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               vehicleImage!.readAsBytes().asStream(),
               vehicleImage!.lengthSync(),
               filename: path.basename(vehicleImage!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
           request.files.add(
@@ -808,7 +813,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               panImage!.readAsBytes().asStream(),
               panImage!.lengthSync(),
               filename: path.basename(panImage!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
 
@@ -818,7 +823,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               _finalImage!.readAsBytes().asStream(),
               _finalImage!.lengthSync(),
               filename: path.basename(_finalImage!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
           request.files.add(
@@ -827,7 +832,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               bankImage!.readAsBytes().asStream(),
               bankImage!.lengthSync(),
               filename: path.basename(bankImage!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
           request.files.add(
@@ -836,7 +841,7 @@ class _RegistrationUIState extends State<RegistrationUI> {
               insuranceImage!.readAsBytes().asStream(),
               insuranceImage!.lengthSync(),
               filename: path.basename(insuranceImage!.path),
-              contentType: MediaType('image', 'jpeg'),
+              // contentType: MediaType('image', 'jpeg'),
             ),
           );
           request.headers.addAll(headers);

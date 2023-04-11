@@ -33,6 +33,7 @@ class _WalletPageState extends State<WalletPage> {
   bool saveStatus = true;
   bool showText =  false;
   TextEditingController amount = new TextEditingController();
+
   getSetting() async {
     try {
       setState(() {
@@ -63,6 +64,7 @@ class _WalletPageState extends State<WalletPage> {
   }
   //Schedule Ride
   List<WalletModel> walletList = [];
+
   getWallet() async {
     try {
       setState(() {
@@ -202,7 +204,8 @@ class _WalletPageState extends State<WalletPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                           child: Text(
-                            getTranslated(context,"AVAILABLE_AMOUNT")!,
+                            "Available Points",
+                            // getTranslated(context,"AVAILABLE_AMOUNT")!,
                             style:
                             theme.textTheme.bodyText2!.copyWith(color: theme.hintColor),
                           ),
@@ -210,7 +213,8 @@ class _WalletPageState extends State<WalletPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Text(
-                            '\u{20B9}${totalBal}',
+                          // \u{20B9}
+                            '$totalBal points',
                             style: theme.textTheme.headline4,
                           ),
                         ),
@@ -257,7 +261,8 @@ class _WalletPageState extends State<WalletPage> {
                           decoration: boxDecoration(
                               radius: 5, bgColor: Colors.grey),
                           child: Center(
-                              child: text(getTranslated(context, "Addmoney")!,
+                              child: text("Add Points",
+                                  // getTranslated(context, "Addmoney")!,
                                   fontFamily: fontMedium,
                                   fontSize: 10.sp,
                                   isCentered: true,

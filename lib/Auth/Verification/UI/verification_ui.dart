@@ -162,6 +162,7 @@ class _VerificationUIState extends State<VerificationUI> {
   ApiBaseHelper apiBase = new ApiBaseHelper();
   bool isNetwork = false;
   bool loading = false;
+
   loginUser() async {
     await App.init();
     isNetwork = await isNetworkAvailable();
@@ -182,7 +183,6 @@ class _VerificationUIState extends State<VerificationUI> {
         });
         setSnackbar(msg, context);
         if (response['status']) {
-
           if (response['data']['is_active'].toString() == "0") {
             showDialog(
                 context: context,
@@ -210,14 +210,20 @@ class _VerificationUIState extends State<VerificationUI> {
                   );
                 });
           }
-          // else if(response['data']['is_active'].toString() == "1" && response['data']['reject'].toString() == "1"){
-          //   Navigator.pushAndRemoveUntil(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => MyProfilePage(
-          //         isActive: response['data']['is_active'].toString(),
-          //       )),
-          //           (route) => false);
-          // }
+          else if(response['data']['is_active'].toString() == "1" && response['data']['reject'].toString() == "1"){
+            Future.delayed(Duration(milliseconds: 500), (){
+              App.localStorage
+                  .setString("userId", response['data']['id'].toString());
+              curUserId = response['data']['id'].toString();
+            });
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MyProfilePage(
+                  isActive: response['data']['is_active'].toString(),
+                  userId:response['data']['id'].toString() ,
+                )),
+                    (route) => false);
+          }
           else {
             App.localStorage
                 .setString("userId", response['data']['id'].toString());

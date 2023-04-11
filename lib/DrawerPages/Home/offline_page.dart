@@ -188,6 +188,7 @@ class _OfflinePageState extends State<OfflinePage> {
   }
 
   MyRideModel? model1;
+
   getCurrentInfo() async {
     try {
       setState(() {
@@ -227,6 +228,7 @@ class _OfflinePageState extends State<OfflinePage> {
       });
     }
   }
+
   String totalRide = "";
   String totalAmount = "";
 
@@ -270,6 +272,7 @@ class _OfflinePageState extends State<OfflinePage> {
       });
     }
   }
+
   showConfirm(MyRideModel model) {
     showDialog(
         context: context,
@@ -645,7 +648,7 @@ class _OfflinePageState extends State<OfflinePage> {
         print("dta" + data['profile_status']);
         refer = data['referral_code'];
       } else {
-        setSnackbar(response['message'], context);
+        // setSnackbar(response['message'], context);
       }
     } on TimeoutException catch (_) {
       setSnackbar("Something Went Wrong", context);
