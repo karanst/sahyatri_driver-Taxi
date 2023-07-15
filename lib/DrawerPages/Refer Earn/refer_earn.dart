@@ -13,6 +13,7 @@ import 'package:qcabs_driver/utils/widget.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_share/social_share.dart';
 import 'package:http/http.dart' as http;
+
 class ReferEarn extends StatefulWidget {
   const ReferEarn({Key? key}) : super(key: key);
 
@@ -29,30 +30,29 @@ class _ReferEarnState extends State<ReferEarn> {
   ApiBaseHelper apiBase = new ApiBaseHelper();
   bool isNetwork = false;
   bool loading = true;
-  String total = "0",commission = "";
+  String total = "0", commission = "";
   List<ReferModel> referList = [];
-  String msg ="";
+  String msg = "";
   getDesc() async {
     await App.init();
     isNetwork = await isNetworkAvailable();
     if (isNetwork) {
       try {
-        var res = await http.get(Uri.parse(baseUrl1 + "payment/get_reffer_amount"));
+        var res =
+            await http.get(Uri.parse(baseUrl1 + "payment/get_reffer_amount"));
         Map response = jsonDecode(res.body);
         print(response);
         bool status = true;
-       // String msg = response['message'];
+        // String msg = response['message'];
         setState(() {
           loading = false;
         });
         // setSnackbar(msg, context);
-        if(response['status']){
-            setState(() {
-              msg = response['message'].toString();
-            });
-        }else{
-
-        }
+        if (response['status']) {
+          setState(() {
+            msg = response['message'].toString();
+          });
+        } else {}
       } on TimeoutException catch (_) {
         setSnackbar("Something Went Wrong", context);
         setState(() {
@@ -66,6 +66,7 @@ class _ReferEarnState extends State<ReferEarn> {
       });
     }
   }
+
   getRefer() async {
     try {
       setState(() {
@@ -73,7 +74,7 @@ class _ReferEarnState extends State<ReferEarn> {
       });
       Map params = {
         "get_referral_data": "1",
-        "driver_id":curUserId,
+        "driver_id": curUserId,
         "refferal_code": refer.toString(),
       };
       Map response = await apiBase.postAPICall(
@@ -85,12 +86,19 @@ class _ReferEarnState extends State<ReferEarn> {
         for (var v in response['data']) {
           setState(() {
             total = response['refferal_count'].toString();
-            referList.add(new ReferModel(v['id'], v['user_name'], v['email'],
-                v['mobile'], v['car_type'], v['user_image'],v['com_status']));
+            referList.add(new ReferModel(
+              v['id'],
+              v['user_name'],
+              v['email'],
+              v['mobile'],
+              v['car_type'],
+              v['user_image'],
+              v['com_status'],
+            ));
           });
-        }
+        } //
       } else {
-       // setSnackbar(response['message'], context);
+        // setSnackbar(response['message'], context);
       }
     } on TimeoutException catch (_) {
       setSnackbar("Something Went Wrong", context);
@@ -116,6 +124,7 @@ class _ReferEarnState extends State<ReferEarn> {
       });
     }
   }
+
   List<String> filter = ["Pending", "Complete"];
   String selectedFil = "Pending";
   @override
@@ -144,7 +153,7 @@ class _ReferEarnState extends State<ReferEarn> {
               child: Text(
                 "${getTranslated(context, "Totalreferral")} - $total",
                 style:
-                theme.textTheme.bodyText2!.copyWith(color: theme.hintColor),
+                    theme.textTheme.bodyText2!.copyWith(color: theme.hintColor),
               ),
             ),
             Container(
@@ -167,8 +176,7 @@ class _ReferEarnState extends State<ReferEarn> {
             Container(
                 margin: EdgeInsets.only(top: 20.0),
                 child: Column(children: [
-                  Text(
-                      msg,
+                  Text(msg,
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
@@ -179,7 +187,7 @@ class _ReferEarnState extends State<ReferEarn> {
                 child: Column(children: [
                   InkWell(
                     onTap: () {
-                      SocialShare.copyToClipboard(refer);
+                      SocialShare.copyToClipboard();
                       setSnackbar("Code Copied", context);
                     },
                     child: DottedBorder(
@@ -245,19 +253,22 @@ class _ReferEarnState extends State<ReferEarn> {
               spacing: 3.w,
               children: filter.map((e) {
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     setState(() {
                       selectedFil = e.toString();
                     });
                   },
                   child: Chip(
                     side: BorderSide(color: MyColorName.primaryLite),
-                    backgroundColor: selectedFil==e?MyColorName.primaryLite:Colors.transparent,
+                    backgroundColor: selectedFil == e
+                        ? MyColorName.primaryLite
+                        : Colors.transparent,
                     shadowColor: Colors.transparent,
                     label: text(e,
                         fontFamily: fontMedium,
                         fontSize: 10.sp,
-                        textColor: selectedFil==e?Colors.white:Colors.black),
+                        textColor:
+                            selectedFil == e ? Colors.white : Colors.black),
                   ),
                 );
               }).toList(),
@@ -270,45 +281,54 @@ class _ReferEarnState extends State<ReferEarn> {
                       itemCount: referList.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return referList[index].status.toString()==selectedFil?Card(
-                          margin: EdgeInsets.all(10),
-                          elevation: 3,
-                          child: ListTile(
-                            leading: Container(
-                              height: 72,
-                              width: 72,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.network(
-                                  imagePath +
-                                      referList[index].user_image.toString(),
-                                  height: 72,
-                                  width: 72,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            title: text(referList[index].name,
-                                fontSize: 12.sp,
-                                fontFamily: fontMedium,
-                                textColor: Colors.black),
-                            subtitle: text(referList[index].email,
-                                fontSize: 10.sp,
-                                fontFamily: fontMedium,
-                                textColor: Colors.black45),
-                           trailing: text(referList[index].status.toString(),
-                               fontSize: 12.sp,
-                               fontFamily: fontMedium,
-                               textColor: referList[index].status.toString()=="Pending"?Colors.red:Colors.green),
-                           /* trailing: Container(
+                        return referList[index].status.toString() == selectedFil
+                            ? Card(
+                                margin: EdgeInsets.all(10),
+                                elevation: 3,
+                                child: ListTile(
+                                  leading: Container(
+                                    height: 72,
+                                    width: 72,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(
+                                        imagePath +
+                                            referList[index]
+                                                .user_image
+                                                .toString(),
+                                        height: 72,
+                                        width: 72,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  title: text(referList[index].name.toString(),
+                                      fontSize: 12.sp,
+                                      fontFamily: fontMedium,
+                                      textColor: Colors.black),
+                                  subtitle: text(
+                                      referList[index].email.toString(),
+                                      fontSize: 10.sp,
+                                      fontFamily: fontMedium,
+                                      textColor: Colors.black45),
+                                  trailing: text(
+                                      referList[index].status.toString(),
+                                      fontSize: 12.sp,
+                                      fontFamily: fontMedium,
+                                      textColor:
+                                          referList[index].status.toString() ==
+                                                  "Pending"
+                                              ? Colors.red
+                                              : Colors.green),
+                                  /* trailing: Container(
                               height: 15,
                               width: 15,
                               decoration:
                                   boxDecoration(radius: 100, bgColor: Colors.red),
                             ),*/
-                          ),
-                        ):
-                        SizedBox();
+                                ),
+                              )
+                            : SizedBox();
                       })
                   : Center(
                       child: text(getTranslated(context, "Norefers")!,

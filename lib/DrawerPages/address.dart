@@ -18,7 +18,7 @@ import 'package:qcabs_driver/utils/colors.dart';
 import 'package:qcabs_driver/utils/common.dart';
 import 'package:qcabs_driver/utils/constant.dart';
 import 'package:qcabs_driver/utils/widget.dart';
-import 'package:screen/screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:qcabs_driver/Locale/locale.dart';
 import 'package:sizer/sizer.dart';
@@ -98,7 +98,8 @@ class _AddressScreenState extends State<AddressScreen> {
           style: theme.textTheme.headline4,
         ),
       ),
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         Container(
           padding: EdgeInsets.symmetric(horizontal: getWidth(25)),
           child: Column(

@@ -27,7 +27,6 @@ const spacing_large = 24.0;
 const spacing_xlarge = 32.0;
 const spacing_xxLarge = 40.0;
 
-
 final int timeOut = 60;
 const int perPage = 10;
 
@@ -36,8 +35,10 @@ bool notificationStatus = true;
 int notificationId = 1;
 final String packageName = 'com.sahayatri.driver';
 const String languageCode = 'languageCode';
-final String baseUrl = 'https://developmentalphawizz.com/taxi/api/Authentication/';
-final String playUrl = "https://play.google.com/store/apps/details?id=$packageName";
+final String baseUrl =
+    'https://developmentalphawizz.com/taxi/api/Authentication/';
+final String playUrl =
+    "https://play.google.com/store/apps/details?id=$packageName";
 String? curUserId;
 String? curTikId = '';
 String? fcmToken;
@@ -46,46 +47,68 @@ String? privacy = '';
 String? returned = "";
 String? delivery = "";
 String? company = "";
-String address="";
-String homeAddress="";
-double latitude=0;
+String address = "";
+String homeAddress = "";
+double latitude = 0;
 double longitude = 0;
-String proImage="";
+double latitudeTemp = 0;
+double longitudeTemp = 0;
+String proImage = "";
 int likeCount = 0;
-String bookingId ="";
-String bankName = "",accountNumber = "",code="",cheque = "",insurance = "";
-String name="",email="",mobile="",image = "",drivingImage = "",brand = "",model2 = "", number = "",refer ="",panCard ="",adharCard = "",vehicle = "";
+String bookingId = "";
+String bankName = "",
+    accountNumber = "",
+    code = "",
+    cheque = "",
+    insurance = "";
+String name = "",
+    email = "",
+    mobile = "",
+    image = "",
+    drivingImage = "",
+    brand = "",
+    model2 = "",
+    number = "",
+    refer = "",
+    panCard = "",
+    adharCard = "",
+    vehicle = "";
 bool doLock = false;
 String rating = "0";
 bool notification = true;
-String gender1 = "",dob = "";
+String gender1 = "", dob = "";
 String profileStatus = "";
 String isActive = '';
 String reject = '';
-String razorPayKey="rzp_test_UUBtmcArqOLqIY";
-String razorPaySecret="NTW3MUbXOtcwUrz5a4YCshqk";
+String razorPayKey = "rzp_test_UUBtmcArqOLqIY";
+String razorPaySecret = "NTW3MUbXOtcwUrz5a4YCshqk";
 final String baseUrl1 = 'https://developmentalphawizz.com/taxi/api/';
 
-double getHeight(double height){
+double getHeight(double height) {
   double tempHeight = 0.0;
-  tempHeight = ((height * 100)/812).h;
+  tempHeight = ((height * 100) / 812).h;
   return tempHeight;
 }
-double getWidth(double width){
+
+double getWidth(double width) {
   double tempWidth = 0.0;
-  tempWidth = ((width * 100)/375).w;
+  tempWidth = ((width * 100) / 375).w;
   return tempWidth;
 }
 
-Widget boxWidth(double width){
-  return SizedBox(width: getWidth(width),);
+Widget boxWidth(double width) {
+  return SizedBox(
+    width: getWidth(width),
+  );
 }
 
-Widget boxHeight(double height){
-  return SizedBox(height: getHeight(height),);
+Widget boxHeight(double height) {
+  return SizedBox(
+    height: getHeight(height),
+  );
 }
 
-navigateScreen(BuildContext context,Widget widget){
+navigateScreen(BuildContext context, Widget widget) {
   Navigator.push(
       context,
       PageTransition(
@@ -94,7 +117,8 @@ navigateScreen(BuildContext context,Widget widget){
         duration: Duration(milliseconds: 500),
       ));
 }
-navigateBackScreen(BuildContext context,Widget widget){
+
+navigateBackScreen(BuildContext context, Widget widget) {
   Navigator.pushReplacement(
       context,
       PageTransition(
@@ -103,6 +127,7 @@ navigateBackScreen(BuildContext context,Widget widget){
         duration: Duration(milliseconds: 500),
       ));
 }
-back(BuildContext context){
+
+back(BuildContext context) {
   Navigator.pop(context);
 }

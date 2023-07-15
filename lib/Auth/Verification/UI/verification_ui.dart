@@ -51,7 +51,8 @@ class _VerificationUIState extends State<VerificationUI> {
     var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(),
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -233,10 +234,11 @@ class _VerificationUIState extends State<VerificationUI> {
             App.localStorage
                 .setString("userId", response['data']['id'].toString());
             curUserId = response['data']['id'].toString();
-            Navigator.pushAndRemoveUntil(
+            Navigator.popAndPushNamed(context, "/");
+            /*Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => OfflinePage("")),
-                (route) => false);
+                (route) => false);*/
           }
         } else {}
       } on TimeoutException catch (_) {

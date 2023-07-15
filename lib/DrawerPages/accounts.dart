@@ -101,7 +101,8 @@ class _NewAccountPageState extends State<NewAccountPage> {
           style: theme.textTheme.headline4,
         ),
       ),
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         SingleChildScrollView(
           child: Column(
             children: [

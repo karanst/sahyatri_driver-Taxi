@@ -24,7 +24,8 @@ class _RideBookedPageState extends State<RideBookedPage> {
     var theme = Theme.of(context);
     return   Scaffold(
       backgroundColor: Colors.transparent,
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         Stack(
           children: [
             BackgroundImage(),

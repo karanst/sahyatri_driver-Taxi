@@ -30,7 +30,7 @@
   "YOU_WILL_GET": "You will get all your payment in this bank account",
   "BANK_NAME": "Bank Name",
   "ACC_NUM": "Account Number",
-  "BANK_CODE": "Bank Code",
+  "BANK_CODE": "IFSC Code",
   "SKIP": "Skip",
   "ADD_BANK": "Add Bank",
   "CONTACT_US": "Contact us",

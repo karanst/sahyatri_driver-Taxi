@@ -1,26 +1,4 @@
-class WalletModel {
-  String? walletId;
-  String? driverId;
-  String? userId;
-  String? bookingId;
-  String? crDr;
-  String? note;
-  String? balance;
-  String? mid;
-  String? txnId;
-  String? txnAmount;
-  String? paymentMode;
-  String? currency;
-  String? txnDate;
-  String? status;
-  String? respcode;
-  String? respmsg;
-  String? gatewayName;
-  String? bankTxnId;
-  String? bankName;
-  String? checksumhash;
-  String? dateAdded;
-  String? dateModified;
+class UserModel {
   String? id;
   String? name;
   String? userName;
@@ -28,26 +6,24 @@ class WalletModel {
   String? phone;
   String? address;
   String? email;
-  String? sign;
   String? licenseNo;
   String? carTypeId;
   String? carType;
   String? carNo;
   String? gender;
   String? dob;
-  String? anniversaryDate;
+  String? bankChaque;
   String? walletAmount;
   String? activeId;
   String? userStatus;
   String? type;
-  String? modelNo;
+  String? driverBalance;
   String? rating;
   String? latitude;
   String? longitude;
   String? timetype;
   String? prefferedLocation;
   String? deviceId;
-  String? permitNo;
   String? insuranceNo;
   String? isVerified;
   String? isActive;
@@ -58,9 +34,9 @@ class WalletModel {
   String? vehicalImege;
   String? carModel;
   String? otp;
+  String? bankName;
   String? accountNumber;
-  String? bankCode;
-  String? userGcmCode;
+  String? ifscCode;
   String? userImage;
   String? drivingLicencePhoto;
   String? referralCode;
@@ -73,33 +49,24 @@ class WalletModel {
   String? panCardStatus;
   String? createdAt;
   String? profileStatus;
-  String? time;
+  String? dateOfBirth;
+  String? incentiveStatus;
+  String? incentiveDate;
+  String? homeAddress;
+  String? profileStatusRead;
+  String? profileReadStatus;
+  String? bounusEndDate;
+  String? bounusAmount;
+  String? joiningIncBounus;
+  String? insurance;
+  String? newDriver;
+  String? userGcmCode;
+  String? reject;
+  String? carImage;
+  String? status;
 
-  WalletModel(
-      {this.walletId,
-      this.driverId,
-      this.userId,
-      this.bookingId,
-      this.crDr,
-      this.note,
-      this.balance,
-      this.mid,
-      this.txnId,
-      this.sign,
-      this.txnAmount,
-      this.paymentMode,
-      this.currency,
-      this.txnDate,
-      this.status,
-      this.respcode,
-      this.respmsg,
-      this.gatewayName,
-      this.bankTxnId,
-      this.bankName,
-      this.checksumhash,
-      this.dateAdded,
-      this.dateModified,
-      this.id,
+  UserModel(
+      {this.id,
       this.name,
       this.userName,
       this.password,
@@ -112,19 +79,18 @@ class WalletModel {
       this.carNo,
       this.gender,
       this.dob,
-      this.anniversaryDate,
+      this.bankChaque,
       this.walletAmount,
       this.activeId,
       this.userStatus,
       this.type,
-      this.modelNo,
+      this.driverBalance,
       this.rating,
       this.latitude,
       this.longitude,
       this.timetype,
       this.prefferedLocation,
       this.deviceId,
-      this.permitNo,
       this.insuranceNo,
       this.isVerified,
       this.isActive,
@@ -135,9 +101,9 @@ class WalletModel {
       this.vehicalImege,
       this.carModel,
       this.otp,
+      this.bankName,
       this.accountNumber,
-      this.bankCode,
-      this.userGcmCode,
+      this.ifscCode,
       this.userImage,
       this.drivingLicencePhoto,
       this.referralCode,
@@ -149,33 +115,24 @@ class WalletModel {
       this.userImageStatus,
       this.panCardStatus,
       this.createdAt,
-      this.time,
-      this.profileStatus});
+      this.profileStatus,
+      this.dateOfBirth,
+      this.incentiveStatus,
+      this.incentiveDate,
+      this.homeAddress,
+      this.profileStatusRead,
+      this.profileReadStatus,
+      this.bounusEndDate,
+      this.bounusAmount,
+      this.joiningIncBounus,
+      this.insurance,
+      this.newDriver,
+      this.userGcmCode,
+      this.reject,
+      this.carImage,
+      this.status});
 
-  WalletModel.fromJson(Map<String, dynamic> json) {
-    walletId = json['wallet_id'];
-    driverId = json['driver_id'];
-    userId = json['user_id'];
-    bookingId = json['booking_id'];
-    crDr = json['cr_dr'];
-    note = json['Note'];
-    balance = json['balance'];
-    mid = json['mid'];
-    txnId = json['txn_id'];
-    sign = json['sign'] ?? "";
-    txnAmount = json['txn_amount'];
-    paymentMode = json['payment_mode'];
-    currency = json['currency'];
-    txnDate = json['txn_date'];
-    status = json['status'];
-    respcode = json['respcode'];
-    respmsg = json['respmsg'];
-    gatewayName = json['gateway_name'];
-    bankTxnId = json['bank_txn_id'];
-    bankName = json['bank_name'];
-    checksumhash = json['checksumhash'];
-    dateAdded = json['date_added'];
-    dateModified = json['date_modified'];
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     userName = json['user_name'];
@@ -189,19 +146,18 @@ class WalletModel {
     carNo = json['car_no'];
     gender = json['gender'];
     dob = json['dob'];
-    anniversaryDate = json['anniversary_date'];
+    bankChaque = json['bank_chaque'];
     walletAmount = json['wallet_amount'];
     activeId = json['active_id'];
     userStatus = json['user_status'];
     type = json['type'];
-    modelNo = json['model_no'];
+    driverBalance = json['driver_balance'].toString();
     rating = json['rating'];
     latitude = json['latitude'];
     longitude = json['longitude'];
     timetype = json['timetype'];
     prefferedLocation = json['preffered_location'];
     deviceId = json['device_id'];
-    permitNo = json['permit_no'];
     insuranceNo = json['insurance_no'];
     isVerified = json['is_verified'];
     isActive = json['is_active'];
@@ -212,9 +168,9 @@ class WalletModel {
     vehicalImege = json['vehical_imege'];
     carModel = json['car_model'];
     otp = json['otp'];
+    bankName = json['bank_name'];
     accountNumber = json['account_number'];
-    bankCode = json['bank_code'];
-    userGcmCode = json['user_gcm_code'];
+    ifscCode = json['ifsc_code'];
     userImage = json['user_image'];
     drivingLicencePhoto = json['driving_licence_photo'];
     referralCode = json['referral_code'];
@@ -227,33 +183,25 @@ class WalletModel {
     panCardStatus = json['pan_card_status'];
     createdAt = json['created_at'];
     profileStatus = json['profile_status'];
-    time = json['time'];
+    dateOfBirth = json['date_of_birth'];
+    incentiveStatus = json['incentive_status'];
+    incentiveDate = json['incentive_date'];
+    homeAddress = json['home_address'];
+    profileStatusRead = json['profile_status_read'];
+    profileReadStatus = json['profile_read_status'];
+    bounusEndDate = json['bounus_end_date'];
+    bounusAmount = json['bounus_amount'];
+    joiningIncBounus = json['joining_inc_bounus'];
+    insurance = json['insurance'];
+    newDriver = json['new_driver'];
+    userGcmCode = json['user_gcm_code'];
+    reject = json['reject'];
+    carImage = json['car_image'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['wallet_id'] = this.walletId;
-    data['driver_id'] = this.driverId;
-    data['user_id'] = this.userId;
-    data['booking_id'] = this.bookingId;
-    data['cr_dr'] = this.crDr;
-    data['Note'] = this.note;
-    data['balance'] = this.balance;
-    data['mid'] = this.mid;
-    data['txn_id'] = this.txnId;
-    data['txn_amount'] = this.txnAmount;
-    data['payment_mode'] = this.paymentMode;
-    data['currency'] = this.currency;
-    data['txn_date'] = this.txnDate;
-    data['status'] = this.status;
-    data['respcode'] = this.respcode;
-    data['respmsg'] = this.respmsg;
-    data['gateway_name'] = this.gatewayName;
-    data['bank_txn_id'] = this.bankTxnId;
-    data['bank_name'] = this.bankName;
-    data['checksumhash'] = this.checksumhash;
-    data['date_added'] = this.dateAdded;
-    data['date_modified'] = this.dateModified;
     data['id'] = this.id;
     data['name'] = this.name;
     data['user_name'] = this.userName;
@@ -267,19 +215,18 @@ class WalletModel {
     data['car_no'] = this.carNo;
     data['gender'] = this.gender;
     data['dob'] = this.dob;
-    data['anniversary_date'] = this.anniversaryDate;
+    data['bank_chaque'] = this.bankChaque;
     data['wallet_amount'] = this.walletAmount;
     data['active_id'] = this.activeId;
     data['user_status'] = this.userStatus;
     data['type'] = this.type;
-    data['model_no'] = this.modelNo;
+    data['driver_balance'] = this.driverBalance;
     data['rating'] = this.rating;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     data['timetype'] = this.timetype;
     data['preffered_location'] = this.prefferedLocation;
     data['device_id'] = this.deviceId;
-    data['permit_no'] = this.permitNo;
     data['insurance_no'] = this.insuranceNo;
     data['is_verified'] = this.isVerified;
     data['is_active'] = this.isActive;
@@ -290,9 +237,9 @@ class WalletModel {
     data['vehical_imege'] = this.vehicalImege;
     data['car_model'] = this.carModel;
     data['otp'] = this.otp;
+    data['bank_name'] = this.bankName;
     data['account_number'] = this.accountNumber;
-    data['bank_code'] = this.bankCode;
-    data['user_gcm_code'] = this.userGcmCode;
+    data['ifsc_code'] = this.ifscCode;
     data['user_image'] = this.userImage;
     data['driving_licence_photo'] = this.drivingLicencePhoto;
     data['referral_code'] = this.referralCode;
@@ -305,7 +252,21 @@ class WalletModel {
     data['pan_card_status'] = this.panCardStatus;
     data['created_at'] = this.createdAt;
     data['profile_status'] = this.profileStatus;
-    data['time'] = this.time;
+    data['date_of_birth'] = this.dateOfBirth;
+    data['incentive_status'] = this.incentiveStatus;
+    data['incentive_date'] = this.incentiveDate;
+    data['home_address'] = this.homeAddress;
+    data['profile_status_read'] = this.profileStatusRead;
+    data['profile_read_status'] = this.profileReadStatus;
+    data['bounus_end_date'] = this.bounusEndDate;
+    data['bounus_amount'] = this.bounusAmount;
+    data['joining_inc_bounus'] = this.joiningIncBounus;
+    data['insurance'] = this.insurance;
+    data['new_driver'] = this.newDriver;
+    data['user_gcm_code'] = this.userGcmCode;
+    data['reject'] = this.reject;
+    data['car_image'] = this.carImage;
+    data['status'] = this.status;
     return data;
   }
 }

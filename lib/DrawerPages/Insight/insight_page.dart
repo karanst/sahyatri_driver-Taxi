@@ -72,14 +72,17 @@ class _InsightPageState extends State<InsightPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(getTranslated(context,Strings.INSIGHT)!,style: TextStyle(
-          color: Colors.black,
-        ),),
+        title: Text(
+          getTranslated(context, Strings.INSIGHT)!,
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       body: BlocBuilder<ThemeCubit, ThemeData>(
-        builder: (context, theme){
+        builder: (context, theme) {
           return FadedSlideAnimation(
-            SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height + 150,
                 child: Column(
@@ -91,20 +94,22 @@ class _InsightPageState extends State<InsightPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         margin: EdgeInsets.symmetric(horizontal: 12),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
                                 Text(
-                                  getTranslated(context,Strings.TODAY)!.toUpperCase(),
+                                  getTranslated(context, Strings.TODAY)!
+                                      .toUpperCase(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
                                       .copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      letterSpacing: 0.7),
+                                          color: Theme.of(context).primaryColor,
+                                          letterSpacing: 0.7),
                                 ),
                                 SizedBox(
                                   width: 20,
@@ -123,43 +128,47 @@ class _InsightPageState extends State<InsightPage> {
                               children: [
                                 RichText(
                                     text: TextSpan(children: <TextSpan>[
-                                      TextSpan(
-                                          text: '12\n',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 17)),
-                                      TextSpan(
-                                          text: getTranslated(context,Strings.RIDES),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
+                                  TextSpan(
+                                      text: '12\n',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(fontSize: 17)),
+                                  TextSpan(
+                                      text:
+                                          getTranslated(context, Strings.RIDES),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
                                               fontSize: 13,
-                                              color: Theme.of(context).hintColor,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                               height: 1.4)),
-                                    ])),
+                                ])),
                                 Spacer(
                                   flex: 7,
                                 ),
                                 RichText(
                                     text: TextSpan(children: <TextSpan>[
-                                      TextSpan(
-                                          text: '\u{20B9}144.50\n',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 17)),
-                                      TextSpan(
-                                          text: getTranslated(context,Strings.EARNINGS),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
+                                  TextSpan(
+                                      text: '\u{20B9}144.50\n',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(fontSize: 17)),
+                                  TextSpan(
+                                      text: getTranslated(
+                                          context, Strings.EARNINGS),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
                                               fontSize: 13,
-                                              color: Theme.of(context).hintColor,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                               height: 1.4)),
-                                    ])),
+                                ])),
                                 Spacer(),
                               ],
                             ),
@@ -167,7 +176,8 @@ class _InsightPageState extends State<InsightPage> {
                               flex: 2,
                             ),
                             Text(
-                              getTranslated(context,Strings.EARNINGS)!.toUpperCase(),
+                              getTranslated(context, Strings.EARNINGS)!
+                                  .toUpperCase(),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -177,7 +187,12 @@ class _InsightPageState extends State<InsightPage> {
                             Expanded(
                               flex: 15,
                               child: Image.asset(
-                                theme.scaffoldBackgroundColor == Colors.black?'assets/insight.png':'assets/insight_light.png', height: 150, width: double.infinity,), /*charts.BarChart(
+                                theme.scaffoldBackgroundColor == Colors.black
+                                    ? 'assets/insight.png'
+                                    : 'assets/insight_light.png',
+                                height: 150,
+                                width: double.infinity,
+                              ), /*charts.BarChart(
                               earningsChart,
                               animate: true,
                               animationDuration: Duration(milliseconds: 1000),*/
@@ -186,13 +201,14 @@ class _InsightPageState extends State<InsightPage> {
                             Spacer(),
                             Center(
                               child: Text(
-                                getTranslated(context,Strings.VIEW_ALL_TRANSACTIONS)!,
+                                getTranslated(
+                                    context, Strings.VIEW_ALL_TRANSACTIONS)!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2!
                                     .copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    letterSpacing: 0.7),
+                                        color: Theme.of(context).primaryColor,
+                                        letterSpacing: 0.7),
                               ),
                             )
                           ],
@@ -206,13 +222,15 @@ class _InsightPageState extends State<InsightPage> {
                           color: Theme.of(context).backgroundColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                        margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        margin:
+                            EdgeInsets.only(left: 12, right: 12, bottom: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              getTranslated(context,Strings.CURRENT_RATINGS)!,
+                              getTranslated(context, Strings.CURRENT_RATINGS)!,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -241,7 +259,9 @@ class _InsightPageState extends State<InsightPage> {
                                   ),
                                 ),
                                 Text(
-                                  '1080 ' + getTranslated(context,Strings.PEOPLE_RATED)!,
+                                  '1080 ' +
+                                      getTranslated(
+                                          context, Strings.PEOPLE_RATED)!,
                                   style: Theme.of(context).textTheme.caption,
                                 ),
                               ],
@@ -251,18 +271,21 @@ class _InsightPageState extends State<InsightPage> {
                                 children: [
                                   Expanded(
                                       child: Image.asset(
-                                        theme.scaffoldBackgroundColor == Colors.black?'assets/ratings.png':'assets/ratings_light.png',
-                                        height: 200,
-                                        width: double.infinity,
-                                        fit: BoxFit.fill,
-                                      ) /*charts.PieChart(
+                                    theme.scaffoldBackgroundColor ==
+                                            Colors.black
+                                        ? 'assets/ratings.png'
+                                        : 'assets/ratings_light.png',
+                                    height: 200,
+                                    width: double.infinity,
+                                    fit: BoxFit.fill,
+                                  ) /*charts.PieChart(
                                     ratingsChart,
                                     animate: true,
                                     animationDuration: Duration(milliseconds: 1000),
                                     defaultRenderer:
                                         charts.ArcRendererConfig(arcWidth: 35),
                                   ),*/
-                                  ),
+                                      ),
                                   // Expanded(
                                   //   child: ListView.builder(
                                   //     physics: NeverScrollableScrollPhysics(),
@@ -303,13 +326,14 @@ class _InsightPageState extends State<InsightPage> {
                             ),
                             Center(
                               child: Text(
-                                getTranslated(context,Strings.READ_ALL_REVIEWS)!,
+                                getTranslated(
+                                    context, Strings.READ_ALL_REVIEWS)!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2!
                                     .copyWith(
-                                    color: Colors.black,
-                                    letterSpacing: 0.7),
+                                        color: Colors.black,
+                                        letterSpacing: 0.7),
                               ),
                             )
                           ],

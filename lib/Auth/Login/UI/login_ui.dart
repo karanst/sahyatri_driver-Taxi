@@ -111,7 +111,8 @@ class _LoginUIState extends State<LoginUI> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         SingleChildScrollView(
           child: Container(
             color: Color(0xff41dbde),

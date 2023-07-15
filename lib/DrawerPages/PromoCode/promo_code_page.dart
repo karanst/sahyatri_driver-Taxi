@@ -25,7 +25,8 @@ class _PromoCodePageState extends State<PromoCodePage> {
     var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(),
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height+110,

@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId "com.sahayatri.driver"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

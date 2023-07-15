@@ -14,9 +14,11 @@ import 'package:qcabs_driver/utils/ApiBaseHelper.dart';
 import 'package:qcabs_driver/utils/Session.dart';
 import 'package:qcabs_driver/utils/common.dart';
 import 'package:qcabs_driver/utils/constant.dart';
-import 'package:screen/screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:qcabs_driver/Locale/locale.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+
 import 'language_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -39,24 +41,24 @@ class _SettingsPageState extends State<SettingsPage> {
     _themeCubit = BlocProvider.of<ThemeCubit>(context);
     getSaved();
   }
-  List<String> langCode = ["en", "ne",];
-  List<String?> languageList = [
 
+  List<String> langCode = [
+    "en",
+    "ne",
   ];
+  List<String?> languageList = [];
   int? selectLan;
   getSaved() async {
-
     //String get = await settingsProvider.getPrefrence(APP_THEME) ?? '';
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String getlng = await prefs.getString(languageCode) ?? '';
-    setState((){
+    setState(() {
       selectLan = langCode.indexOf(getlng == '' ? "en" : getlng);
     });
-
-
   }
+
   ApiBaseHelper apiBase = new ApiBaseHelper();
   bool isNetwork = false;
   updateStatus(String status1) async {
@@ -86,6 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
       setSnackbar("No Internet Connection", context);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -103,12 +106,12 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         backgroundColor: AppTheme.primaryColor,
         title: Text(
-          getTranslated(context,Strings.SETTINGS)!,
+          getTranslated(context, Strings.SETTINGS)!,
           style: theme.textTheme.headline4,
         ),
       ),
       body: FadedSlideAnimation(
-        Stack(
+        child: Stack(
           children: [
             ListView(
               // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,41 +120,45 @@ class _SettingsPageState extends State<SettingsPage> {
                 Card(
                   margin: EdgeInsets.all(getWidth(10)),
                   child: ListTile(
-                    title:Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    title: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                       child: Text(
-                       getTranslated(context, "Donotlockscreen")!,
+                        getTranslated(context, "Donotlockscreen")!,
                         style: theme.textTheme.bodyText2!
                             .copyWith(color: theme.hintColor),
                       ),
                     ),
-                    trailing: Switch.adaptive(value: doLock, onChanged: (value)async{
-                      await App.init();
-                      App.localStorage.setBool("lock", value);
-                      Screen.keepOn(value);
-                      setState(() {
-                        doLock = value;
-                      });
-                    }),
+                    trailing: Switch.adaptive(
+                        value: doLock,
+                        onChanged: (value) async {
+                          await App.init();
+                          App.localStorage.setBool("lock", value);
+                          WakelockPlus.toggle(enable: value);
+                          setState(() {
+                            doLock = value;
+                          });
+                        }),
                   ),
                 ),
                 Card(
                   margin: EdgeInsets.all(getWidth(10)),
                   child: ListTile(
-                    title:Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    title: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                       child: Text(
                         getTranslated(context, "Rulesandregulations")!,
                         style: theme.textTheme.bodyText2!
                             .copyWith(color: theme.hintColor),
                       ),
                     ),
-                    onTap: (){
-                      navigateScreen(context,RulesRegulation());
+                    onTap: () {
+                      navigateScreen(context, RulesRegulation());
                     },
                   ),
                 ),
-               /* Card(
+                /* Card(
                   margin: EdgeInsets.all(getWidth(10)),
                   child: ListTile(
                     title:Padding(
@@ -174,7 +181,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     }),
                   ),
                 ),*/
-               /* ListView.builder(
+                /* ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: themes.length,
                   shrinkWrap: true,
@@ -195,7 +202,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     child: Text(
-                      getTranslated(context,"CHOOSE_LANG")!,
+                      getTranslated(context, "CHOOSE_LANG")!,
                       style: theme.textTheme.bodyText2!
                           .copyWith(color: theme.hintColor),
                     ),
@@ -270,6 +277,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
   void _changeLan(String language, BuildContext ctx) async {
     Locale _locale = await setLocale(language);
 

@@ -97,7 +97,8 @@ class _BonusInfoState extends State<BonusInfo> {
           style: theme.textTheme.headline4,
         ),
       ),
-      body: FadedSlideAnimation(
+      body:  FadedSlideAnimation(
+            child:
         SingleChildScrollView(
           child: saveStatus
               ? Column(

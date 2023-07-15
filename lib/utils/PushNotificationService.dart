@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,6 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 
 Future<void> backgroundMessage(RemoteMessage message) async {
-
   /* var data = message.notification!;
   var title = data.title.toString();
   var body = data.body.toString();
@@ -58,7 +57,7 @@ Future<void> backgroundMessage(RemoteMessage message) async {
 class PushNotificationService {
   BuildContext context;
   ValueChanged onResult;
-  PushNotificationService({required this.context,required this.onResult});
+  PushNotificationService({required this.context, required this.onResult});
 
   Future initialise() async {
     await App.init();
@@ -81,12 +80,12 @@ class PushNotificationService {
             macOS: initializationSettingsMacOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OfflinePage(payload.toString())),
-                  (route) => false);
-        });
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OfflinePage(payload.toString())),
+          (route) => false);
+    });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       App.localStorage.setBool("notStatus", true);
       notificationStatus = App.localStorage.getBool("notStatus")!;
@@ -96,15 +95,18 @@ class PushNotificationService {
       var body = data.body.toString();
       var test = message.data;
       print(test['Booking_id']);
-      bookingId = test['Booking_id'];
-      if(title.toString().contains("update")){
-        onResult("update");
-      }else  if(title.toString().contains("cancelled")){
-        onResult("cancelled");
-      } else{
-        onResult(bookingId);
+      bookingId = "";
+      if (test['Booking_id'] != null) {
+        bookingId = test['Booking_id'];
       }
-     /* if(bookingId==""){
+      if (title.toString().contains("update")) {
+        onResult("update");
+      } else if (title.toString().contains("cancelled")) {
+        onResult("cancelled");
+      } else {
+        onResult(bookingId.toString());
+      }
+      /* if(bookingId==""){
         bookingId = test['Booking_id'];
         print("okay");
         onResult(bookingId);
@@ -132,7 +134,13 @@ class PushNotificationService {
       if (image != null && image != 'null' && image != '') {
         generateImageNotication(title, body, image, type, bookingId);
       } else {
-        generateSimpleNotication(title, body, type, bookingId);
+        generateSimpleNotication(
+            title,
+            body,
+            type,
+            bookingId.toString() != "null" && bookingId != ""
+                ? bookingId
+                : "123");
         // createSimpleNotication(title, body, type, id, test);
       }
     });
@@ -147,7 +155,7 @@ class PushNotificationService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var test = message.data;
       print(test);
-    /*  bookingId = test['Booking_id'];
+      /*  bookingId = test['Booking_id'];
       onResult(bookingId);*/
       //onResult(bookingId);
     });
@@ -216,10 +224,13 @@ Future<void> generateSimpleNotication(
       ledColor: const Color.fromARGB(255, 255, 0, 0),
       ledOnMs: 1000,
       ledOffMs: 500,
+      styleInformation: BigTextStyleInformation("", htmlFormatBigText: true),
       sound: RawResourceAndroidNotificationSound('test'),
       ticker: 'ticker');
 
   var iosDetail = IOSNotificationDetails();
+  print(title);
+  print(msg);
 
   var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics, iOS: iosDetail);
@@ -238,21 +249,7 @@ Future<void> createSimpleNotication(
     }
   }*/
 
-  await AwesomeNotifications().createNotification(
-    content: NotificationContent(
-      id: 1,
-      channelKey: 'high_importance_channel',
-      title: title,
-      body: msg,
-      notificationLayout: NotificationLayout.Default,
-    ),
-    actionButtons: [
-      NotificationActionButton(
-          key: "Reject", label: "Reject", buttonType: ActionButtonType.Default),
-      NotificationActionButton(
-          key: "Accept", label: "Accept", buttonType: ActionButtonType.Default)
-    ],
-  );
+
 }
 
 ApiBaseHelper apiBaseHelper = new ApiBaseHelper();

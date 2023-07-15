@@ -23,7 +23,7 @@ class _RateRideDialogState extends State<RateRideDialog> {
       child: Material(
         color: Theme.of(context).backgroundColor,
         child: FadedSlideAnimation(
-          Stack(
+          child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               SingleChildScrollView(
@@ -41,7 +41,9 @@ class _RateRideDialogState extends State<RateRideDialog> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
@@ -97,7 +99,8 @@ class _RateRideDialogState extends State<RateRideDialog> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
-                                        .copyWith(color: Theme.of(context).hintColor),
+                                        .copyWith(
+                                            color: Theme.of(context).hintColor),
                                   )
                                 ],
                               ),
@@ -108,11 +111,12 @@ class _RateRideDialogState extends State<RateRideDialog> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                getTranslated(context,Strings.RIDE_FARE)!,
+                                getTranslated(context, Strings.RIDE_FARE)!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6!
-                                    .copyWith(color: Theme.of(context).hintColor),
+                                    .copyWith(
+                                        color: Theme.of(context).hintColor),
                               ),
                               SizedBox(height: 4),
                               Text(
@@ -120,13 +124,18 @@ class _RateRideDialogState extends State<RateRideDialog> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
-                                    .copyWith(color: Theme.of(context).primaryColor),
+                                    .copyWith(
+                                        color: Theme.of(context).primaryColor),
                               ),
                               SizedBox(height: 24),
                               Text(
-                                getTranslated(context,Strings.PAYMENT_VIA)!,
-                                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: Theme.of(context).hintColor, fontSize: 16),
+                                getTranslated(context, Strings.PAYMENT_VIA)!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                        color: Theme.of(context).hintColor,
+                                        fontSize: 16),
                               ),
                               SizedBox(height: 4),
                               Row(
@@ -138,7 +147,7 @@ class _RateRideDialogState extends State<RateRideDialog> {
                                   ),
                                   SizedBox(width: 8),
                                   Text(
-                                    getTranslated(context,Strings.WALLET)!,
+                                    getTranslated(context, Strings.WALLET)!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -151,10 +160,12 @@ class _RateRideDialogState extends State<RateRideDialog> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     ListTile(
                       title: Text(
-                        getTranslated(context,Strings.RIDE_INFO)!,
+                        getTranslated(context, Strings.RIDE_INFO)!,
                         style: theme.textTheme.headline6!
                             .copyWith(color: theme.hintColor),
                       ),
@@ -174,15 +185,22 @@ class _RateRideDialogState extends State<RateRideDialog> {
                       ),
                       title: Text('1124, Golden Point Street'),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Divider(),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Center(
-                      child: Text(getTranslated(context,Strings.RATE_YOUR_PASSENGER)!,
+                      child: Text(
+                          getTranslated(context, Strings.RATE_YOUR_PASSENGER)!,
                           style: theme.textTheme.headline6!
                               .copyWith(color: theme.hintColor)),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -194,12 +212,15 @@ class _RateRideDialogState extends State<RateRideDialog> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    EntryField(
-                      hint: getTranslated(context,Strings.ADD_COMMENT),
+                    SizedBox(
+                      height: 20,
                     ),
-                    SizedBox(height: 80,),
-
+                    EntryField(
+                      hint: getTranslated(context, Strings.ADD_COMMENT),
+                    ),
+                    SizedBox(
+                      height: 80,
+                    ),
                   ],
                 ),
               ),
@@ -210,7 +231,7 @@ class _RateRideDialogState extends State<RateRideDialog> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  text: getTranslated(context,Strings.SUBMIT_REVIEW),
+                  text: getTranslated(context, Strings.SUBMIT_REVIEW),
                 ),
               ),
             ],

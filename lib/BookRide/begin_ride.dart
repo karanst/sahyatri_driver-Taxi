@@ -37,7 +37,8 @@ class _BeginRideState extends State<BeginRide> {
         BackgroundImage(),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: FadedSlideAnimation(
+          body:  FadedSlideAnimation(
+            child:
             Stack(
               children: [
                 Column(

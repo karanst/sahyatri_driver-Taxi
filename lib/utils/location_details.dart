@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:geocode/geocode.dart';
+
 import 'package:http/http.dart';
 import 'package:location/location.dart';
+
 import 'package:qcabs_driver/utils/ApiBaseHelper.dart';
 import 'package:qcabs_driver/utils/Session.dart';
 import 'package:qcabs_driver/utils/common.dart';
@@ -46,15 +48,16 @@ class GetLocation {
 
       _getAddress(_currentPosition!.latitude, _currentPosition!.longitude)
           .then((value) {
-        _address = "${value.first.addressLine}";
-        firstLocation = value.first.subLocality.toString();
+        _address = "${value.first.streetAddress}";
+        firstLocation = value.first.city.toString();
         print(_address);
         lat = _currentPosition!.latitude.toString();
         lng = _currentPosition!.longitude.toString();
 
         updateLocation();
-        if (latitude != value.first.coordinates.latitude) {
-          latitude = value.first.coordinates.latitude;
+        if (latitude != _currentPosition!.latitude) {
+          latitudeTemp = _currentPosition!.latitude!;
+          longitudeTemp = _currentPosition!.longitude!;
           print("ok");
           onResult(value);
         } else {
@@ -63,8 +66,8 @@ class GetLocation {
           }
         }
         if (latitude == 0) {
-          latitude = _currentPosition!.latitude!;
-          longitude = _currentPosition!.longitude!;
+          latitudeTemp = _currentPosition!.latitude!;
+          longitudeTemp = _currentPosition!.longitude!;
         }
       });
     });
@@ -90,9 +93,8 @@ class GetLocation {
   }
 
   Future<List<Address>> _getAddress(double? lat, double? lang) async {
-    final coordinates = new Coordinates(lat, lang);
-    List<Address> add =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    return add;
+    Address add =
+        await GeoCode().reverseGeocoding(latitude: lat!, longitude: lang!);
+    return [add];
   }
 }
